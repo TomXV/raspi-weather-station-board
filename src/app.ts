@@ -234,6 +234,8 @@ async function fetchWeather(loc) {
     + `latitude=${loc.lat}&longitude=${loc.lon}`
     + `&current=temperature_2m,weather_code,wind_speed_10m,relative_humidity_2m`
     + `&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max`
+    + `&hourly=temperature_2m`
+    + `&past_hours=2&forecast_hours=1`
     + `&timezone=Asia%2FTokyo&forecast_days=1`;
   const res = await fetch(url);
   if (!res.ok) throw new Error(res.status);
@@ -324,6 +326,40 @@ async function fetchPiStatus() {
   }
 }
 
+function trendMeta(delta: number) {
+  if (delta >= 1.5) return { symbol: '↑', cls: 'up-fast' };
+  if (delta >= 0.5) return { symbol: '↗', cls: 'up' };
+  if (delta <= -1.5) return { symbol: '↓', cls: 'down-fast' };
+  if (delta <= -0.5) return { symbol: '↘', cls: 'down' };
+  return { symbol: '→', cls: 'flat' };
+}
+
+function tempDeltaFrom30mAgo(data: any) {
+  const currentTemp = Number(data?.current?.temperature_2m);
+  const times = data?.hourly?.time || [];
+  const temps = data?.hourly?.temperature_2m || [];
+  if (!Number.isFinite(currentTemp) || !Array.isArray(times) || !Array.isArray(temps) || times.length === 0) {
+    return 0;
+  }
+
+  const target = Date.now() - 30 * 60 * 1000;
+  let bestIdx = -1;
+  let bestDiff = Infinity;
+
+  for (let i = 0; i < times.length; i++) {
+    const ts = new Date(times[i]).getTime();
+    if (!Number.isFinite(ts)) continue;
+    const diff = Math.abs(ts - target);
+    if (diff < bestDiff) {
+      bestDiff = diff;
+      bestIdx = i;
+    }
+  }
+
+  if (bestIdx < 0 || !Number.isFinite(Number(temps[bestIdx]))) return 0;
+  return currentTemp - Number(temps[bestIdx]);
+}
+
 // カード更新
 function updateCard(loc, data) {
   const card = document.getElementById(`card-${loc.id}`);
@@ -345,6 +381,8 @@ function updateCard(loc, data) {
   const d = getDisplay(loc);
   const t = UI_TEXT[currentLang];
 
+  const trend = trendMeta(tempDeltaFrom30mAgo(data));
+
   card.innerHTML = `
     <div style="display:flex;justify-content:space-between;align-items:flex-start">
       <div>
@@ -359,6 +397,7 @@ function updateCard(loc, data) {
         <div>
           <span class="card-temp">${Math.round(cur.temperature_2m)}</span>
           <span class="card-temp-unit">°C</span>
+          <span class="card-trend ${trend.cls}">${trend.symbol}</span>
         </div>
         <div class="card-desc">${desc}</div>
       </div>
