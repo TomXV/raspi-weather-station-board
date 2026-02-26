@@ -1,34 +1,34 @@
 const CITIES = [
-  { id: 'sapporo', name: '札幌', enName: 'Sapporo', region: '北海道', enRegion: 'Hokkaido', lat: 43.0618, lon: 141.3545 },
-  { id: 'sendai',  name: '仙台', enName: 'Sendai', region: '宮城県', enRegion: 'Miyagi', lat: 38.2688, lon: 140.8721 },
-  { id: 'tokyo',   name: '東京', enName: 'Tokyo', region: '東京都', enRegion: 'Tokyo', lat: 35.6762, lon: 139.6503 },
-  { id: 'nagoya',  name: '名古屋', enName: 'Nagoya', region: '愛知県', enRegion: 'Aichi', lat: 35.1815, lon: 136.9066 },
-  { id: 'osaka',   name: '大阪', enName: 'Osaka', region: '大阪府', enRegion: 'Osaka', lat: 34.6937, lon: 135.5023 },
-  { id: 'fukuoka', name: '福岡', enName: 'Fukuoka', region: '福岡県', enRegion: 'Fukuoka', lat: 33.5904, lon: 130.4017 },
+  { id: 'sapporo', name: '札幌', enName: 'Sapporo', zhName: '札幌', koName: '삿포로', region: '北海道', enRegion: 'Hokkaido', zhRegion: '北海道', koRegion: '홋카이도', lat: 43.0618, lon: 141.3545 },
+  { id: 'sendai',  name: '仙台', enName: 'Sendai', zhName: '仙台', koName: '센다이', region: '宮城県', enRegion: 'Miyagi', zhRegion: '宫城县', koRegion: '미야기현', lat: 38.2688, lon: 140.8721 },
+  { id: 'tokyo',   name: '東京', enName: 'Tokyo', zhName: '东京', koName: '도쿄', region: '東京都', enRegion: 'Tokyo', zhRegion: '东京都', koRegion: '도쿄도', lat: 35.6762, lon: 139.6503 },
+  { id: 'nagoya',  name: '名古屋', enName: 'Nagoya', zhName: '名古屋', koName: '나고야', region: '愛知県', enRegion: 'Aichi', zhRegion: '爱知县', koRegion: '아이치현', lat: 35.1815, lon: 136.9066 },
+  { id: 'osaka',   name: '大阪', enName: 'Osaka', zhName: '大阪', koName: '오사카', region: '大阪府', enRegion: 'Osaka', zhRegion: '大阪府', koRegion: '오사카부', lat: 34.6937, lon: 135.5023 },
+  { id: 'fukuoka', name: '福岡', enName: 'Fukuoka', zhName: '福冈', koName: '후쿠오카', region: '福岡県', enRegion: 'Fukuoka', zhRegion: '福冈县', koRegion: '후쿠오카현', lat: 33.5904, lon: 130.4017 },
 ];
 
 const NAGANO = [
-  { id: 'hokushin', name: '長野市', enName: 'Nagano', region: '北信', enRegion: 'North Shin', lat: 36.6485, lon: 138.1948 },
-  { id: 'toushin',  name: '上田市', enName: 'Ueda', region: '東信', enRegion: 'East Shin', lat: 36.4020, lon: 138.2490 },
-  { id: 'chushin',  name: '松本市', enName: 'Matsumoto', region: '中信', enRegion: 'Central Shin', lat: 36.2380, lon: 137.9724 },
-  { id: 'nanshin',  name: '飯田市', enName: 'Iida', region: '南信', enRegion: 'South Shin', lat: 35.5151, lon: 137.8217 },
-  { id: 'suwa',     name: '諏訪市', enName: 'Suwa', region: '諏訪エリア', enRegion: 'Suwa Area', lat: 36.0392, lon: 138.1131 },
-  { id: 'inaji',    name: '伊那市', enName: 'Ina', region: '伊那路エリア', enRegion: 'Inaji Area', lat: 35.8274, lon: 137.9537 },
-  { id: 'kisoj',    name: '木曽町', enName: 'Kiso', region: '木曽路エリア', enRegion: 'Kisoji Area', lat: 35.8423, lon: 137.6937 },
-  { id: 'alps',     name: '大町市', enName: 'Omachi', region: '日本アルプスエリア', enRegion: 'Japan Alps Area', lat: 36.5045, lon: 137.8518 },
+  { id: 'hokushin', name: '長野市', enName: 'Nagano', zhName: '长野市', koName: '나가노시', region: '北信', enRegion: 'North Shin', zhRegion: '北信', koRegion: '북신', lat: 36.6485, lon: 138.1948 },
+  { id: 'toushin',  name: '上田市', enName: 'Ueda', zhName: '上田市', koName: '우에다시', region: '東信', enRegion: 'East Shin', zhRegion: '东信', koRegion: '동신', lat: 36.4020, lon: 138.2490 },
+  { id: 'chushin',  name: '松本市', enName: 'Matsumoto', zhName: '松本市', koName: '마쓰모토시', region: '中信', enRegion: 'Central Shin', zhRegion: '中信', koRegion: '중신', lat: 36.2380, lon: 137.9724 },
+  { id: 'nanshin',  name: '飯田市', enName: 'Iida', zhName: '饭田市', koName: '이다시', region: '南信', enRegion: 'South Shin', zhRegion: '南信', koRegion: '남신', lat: 35.5151, lon: 137.8217 },
+  { id: 'suwa',     name: '諏訪市', enName: 'Suwa', zhName: '诹访市', koName: '스와시', region: '諏訪エリア', enRegion: 'Suwa Area', zhRegion: '诹访区域', koRegion: '스와 지역', lat: 36.0392, lon: 138.1131 },
+  { id: 'inaji',    name: '伊那市', enName: 'Ina', zhName: '伊那市', koName: '이나시', region: '伊那路エリア', enRegion: 'Inaji Area', zhRegion: '伊那路区域', koRegion: '이나지 지역', lat: 35.8274, lon: 137.9537 },
+  { id: 'kisoj',    name: '木曽町', enName: 'Kiso', zhName: '木曾町', koName: '기소마치', region: '木曽路エリア', enRegion: 'Kisoji Area', zhRegion: '木曾路区域', koRegion: '기소지 지역', lat: 35.8423, lon: 137.6937 },
+  { id: 'alps',     name: '大町市', enName: 'Omachi', zhName: '大町市', koName: '오마치시', region: '日本アルプスエリア', enRegion: 'Japan Alps Area', zhRegion: '日本阿尔卑斯区域', koRegion: '일본 알프스 지역', lat: 36.5045, lon: 137.8518 },
 ];
 
 const WARNING_AREAS = [
-  { label: '札幌(北海道)', code: '016000' },
-  { label: '仙台(宮城県)', code: '040000' },
-  { label: '東京(東京都)', code: '130000' },
-  { label: '名古屋(愛知県)', code: '230000' },
-  { label: '大阪(大阪府)', code: '270000' },
-  { label: '福岡(福岡県)', code: '400000' },
-  { label: '長野県', code: '200000' },
+  { code: '016000', labelJa: '札幌(北海道)', labelEn: 'Sapporo (Hokkaido)', labelZh: '札幌（北海道）' },
+  { code: '040000', labelJa: '仙台(宮城県)', labelEn: 'Sendai (Miyagi)', labelZh: '仙台（宫城县）' },
+  { code: '130000', labelJa: '東京(東京都)', labelEn: 'Tokyo (Tokyo)', labelZh: '东京（东京都）' },
+  { code: '230000', labelJa: '名古屋(愛知県)', labelEn: 'Nagoya (Aichi)', labelZh: '名古屋（爱知县）' },
+  { code: '270000', labelJa: '大阪(大阪府)', labelEn: 'Osaka (Osaka)', labelZh: '大阪（大阪府）' },
+  { code: '400000', labelJa: '福岡(福岡県)', labelEn: 'Fukuoka (Fukuoka)', labelZh: '福冈（福冈县）' },
+  { code: '200000', labelJa: '長野県', labelEn: 'Nagano', labelZh: '长野县' },
 ];
 
-type Lang = 'ja' | 'en';
+type Lang = 'ja' | 'en' | 'zh' | 'ko';
 let currentLang: Lang = 'ja';
 
 const UI_TEXT = {
@@ -59,44 +59,85 @@ const UI_TEXT = {
     humidity: 'Humidity',
     failed: 'Fetch Failed',
     page: 'Page',
+  },
+  zh: {
+    boardTitle: '⛅ 气象信息看板',
+    warningTitle: '⚠ 警报/注意报（主要城市 + 长野 / 原文）',
+    piTitle: '🖥 Raspberry Pi 状态',
+    majorLabel: '▶ 主要城市',
+    naganoLabel: '▶ 长野',
+    updated: '更新',
+    updating: '更新中...',
+    precip: '降水',
+    wind: '风速',
+    humidity: '湿度',
+    failed: '获取失败',
+    page: '页',
+  },
+  ko: {
+    boardTitle: '⛅ 기상 정보 보드',
+    warningTitle: '⚠ 경보/주의보 (주요 도시 + 나가노 / 원문)',
+    piTitle: '🖥 Raspberry Pi 상태',
+    majorLabel: '▶ 주요 도시',
+    naganoLabel: '▶ 나가노',
+    updated: '갱신',
+    updating: '갱신 중...',
+    precip: '강수',
+    wind: '풍속',
+    humidity: '습도',
+    failed: '가져오기 실패',
+    page: '페이지',
   }
 };
 
 function decodeWMO(code: number) {
-  const map: Record<number, { icon: string; ja: string; en: string }> = {
-    0:  { icon: '☀️', ja: '快晴', en: 'Clear' },
-    1:  { icon: '🌤️', ja: 'ほぼ晴れ', en: 'Mostly clear' },
-    2:  { icon: '⛅', ja: '一部曇り', en: 'Partly cloudy' },
-    3:  { icon: '☁️', ja: '曇り', en: 'Cloudy' },
-    45: { icon: '🌫️', ja: '霧', en: 'Fog' },
-    48: { icon: '🌫️', ja: '霧(着氷)', en: 'Rime fog' },
-    51: { icon: '🌦️', ja: '霧雨(弱)', en: 'Light drizzle' },
-    53: { icon: '🌦️', ja: '霧雨', en: 'Drizzle' },
-    55: { icon: '🌦️', ja: '霧雨(強)', en: 'Dense drizzle' },
-    61: { icon: '🌧️', ja: '雨(弱)', en: 'Light rain' },
-    63: { icon: '🌧️', ja: '雨', en: 'Rain' },
-    65: { icon: '🌧️', ja: '雨(強)', en: 'Heavy rain' },
-    71: { icon: '🌨️', ja: '雪(弱)', en: 'Light snow' },
-    73: { icon: '❄️', ja: '雪', en: 'Snow' },
-    75: { icon: '❄️', ja: '雪(強)', en: 'Heavy snow' },
-    77: { icon: '🌨️', ja: 'あられ', en: 'Snow grains' },
-    80: { icon: '🌦️', ja: 'にわか雨(弱)', en: 'Light showers' },
-    81: { icon: '🌦️', ja: 'にわか雨', en: 'Showers' },
-    82: { icon: '⛈️', ja: 'にわか雨(強)', en: 'Heavy showers' },
-    85: { icon: '🌨️', ja: 'にわか雪', en: 'Snow showers' },
-    86: { icon: '🌨️', ja: 'にわか雪(強)', en: 'Heavy snow showers' },
-    95: { icon: '⛈️', ja: '雷雨', en: 'Thunderstorm' },
-    96: { icon: '⛈️', ja: '雷雨+ひょう', en: 'Storm + hail' },
-    99: { icon: '⛈️', ja: '激しい雷雨', en: 'Severe storm' },
+  const map: Record<number, { icon: string; ja: string; en: string; zh?: string; ko?: string }> = {
+    0:  { icon: '☀️', ja: '快晴', en: 'Clear', ko: '맑음' },
+    1:  { icon: '🌤️', ja: 'ほぼ晴れ', en: 'Mostly clear', ko: '대체로 맑음' },
+    2:  { icon: '⛅', ja: '一部曇り', en: 'Partly cloudy', ko: '부분적으로 흐림' },
+    3:  { icon: '☁️', ja: '曇り', en: 'Cloudy', ko: '흐림' },
+    45: { icon: '🌫️', ja: '霧', en: 'Fog', ko: '안개' },
+    48: { icon: '🌫️', ja: '霧(着氷)', en: 'Rime fog', ko: '착빙 안개' },
+    51: { icon: '🌦️', ja: '霧雨(弱)', en: 'Light drizzle', ko: '약한 이슬비' },
+    53: { icon: '🌦️', ja: '霧雨', en: 'Drizzle', ko: '이슬비' },
+    55: { icon: '🌦️', ja: '霧雨(強)', en: 'Dense drizzle', ko: '강한 이슬비' },
+    61: { icon: '🌧️', ja: '雨(弱)', en: 'Light rain', ko: '약한 비' },
+    63: { icon: '🌧️', ja: '雨', en: 'Rain', ko: '비' },
+    65: { icon: '🌧️', ja: '雨(強)', en: 'Heavy rain', ko: '강한 비' },
+    71: { icon: '🌨️', ja: '雪(弱)', en: 'Light snow', ko: '약한 눈' },
+    73: { icon: '❄️', ja: '雪', en: 'Snow', ko: '눈' },
+    75: { icon: '❄️', ja: '雪(強)', en: 'Heavy snow', ko: '강한 눈' },
+    77: { icon: '🌨️', ja: 'あられ', en: 'Snow grains', ko: '싸락눈' },
+    80: { icon: '🌦️', ja: 'にわか雨(弱)', en: 'Light showers', ko: '약한 소나기' },
+    81: { icon: '🌦️', ja: 'にわか雨', en: 'Showers', ko: '소나기' },
+    82: { icon: '⛈️', ja: 'にわか雨(強)', en: 'Heavy showers', ko: '강한 소나기' },
+    85: { icon: '🌨️', ja: 'にわか雪', en: 'Snow showers', ko: '눈 소나기' },
+    86: { icon: '🌨️', ja: 'にわか雪(強)', en: 'Heavy snow showers', ko: '강한 눈 소나기' },
+    95: { icon: '⛈️', ja: '雷雨', en: 'Thunderstorm', ko: '뇌우' },
+    96: { icon: '⛈️', ja: '雷雨+ひょう', en: 'Storm + hail', ko: '뇌우+우박' },
+    99: { icon: '⛈️', ja: '激しい雷雨', en: 'Severe storm', ko: '강한 뇌우' },
   };
-  return map[code] || { icon: '❓', ja: `(${code})`, en: `(${code})` };
+  return map[code] || { icon: '❓', ja: `(${code})`, en: `(${code})`, ko: `(${code})` };
 }
 
 function getDisplay(loc: any) {
-  return {
-    name: currentLang === 'en' ? (loc.enName || loc.name) : loc.name,
-    region: currentLang === 'en' ? (loc.enRegion || loc.region) : loc.region,
-  };
+  const name = currentLang === 'en'
+    ? (loc.enName || loc.name)
+    : currentLang === 'zh'
+      ? (loc.zhName || loc.enName || loc.name)
+      : currentLang === 'ko'
+        ? (loc.koName || loc.enName || loc.name)
+        : loc.name;
+
+  const region = currentLang === 'en'
+    ? (loc.enRegion || loc.region)
+    : currentLang === 'zh'
+      ? (loc.zhRegion || loc.enRegion || loc.region)
+      : currentLang === 'ko'
+        ? (loc.koRegion || loc.enRegion || loc.region)
+        : loc.region;
+
+  return { name, region };
 }
 
 function applyStaticLanguage() {
@@ -111,6 +152,11 @@ function applyStaticLanguage() {
   if (major) major.textContent = t.majorLabel;
   const nag = document.getElementById('nagano-label');
   if (nag) nag.textContent = t.naganoLabel;
+}
+
+function warningAreaLabel(area: any) {
+  // 警報・注意報テキストは常に日本語（生文優先）
+  return area.labelJa;
 }
 
 // カード HTML 生成
@@ -208,14 +254,16 @@ async function fetchWarningInfo() {
         const data = await res.json();
         const headline = (data.headlineText || '').trim();
         const reportTime = (data.reportDatetime || '').replace('T', ' ').replace('+09:00', '');
-        if (!headline) return `${area.label}: 現在、目立つ警報見出しなし`;
-        return `${area.label} [${reportTime}] ${headline}`;
+        const label = warningAreaLabel(area);
+        if (!headline) return `${label}: 現在、目立つ警報見出しなし`;
+        return `${label} [${reportTime}] ${headline}`;
       })
     );
 
     const lines = results.map((r, i) => {
       if (r.status === 'fulfilled') return r.value;
-      return `${WARNING_AREAS[i].label}: 取得失敗`;
+      const label = warningAreaLabel(WARNING_AREAS[i]);
+      return `${label}: 取得失敗`;
     });
 
     setTickerText('alert-track', lines.join(' ｜ '));
@@ -238,7 +286,11 @@ async function fetchPiStatus() {
 
     const labels = currentLang === 'en'
       ? { temp: 'Temp', load: 'Load', mem: 'Memory', disk: 'Disk', up: 'Uptime', ip: 'IP' }
-      : { temp: '温度', load: '負荷', mem: 'メモリ', disk: 'ディスク', up: '稼働', ip: 'IP' };
+      : currentLang === 'zh'
+        ? { temp: '温度', load: '负载', mem: '内存', disk: '磁盘', up: '运行时长', ip: 'IP' }
+        : currentLang === 'ko'
+          ? { temp: '온도', load: '부하', mem: '메모리', disk: '디스크', up: '가동시간', ip: 'IP' }
+          : { temp: '温度', load: '負荷', mem: 'メモリ', disk: 'ディスク', up: '稼働', ip: 'IP' };
 
     document.getElementById('pi-status').innerHTML = `
       <span>${labels.temp}: <b>${temp}°C</b></span>
@@ -261,7 +313,13 @@ function updateCard(loc, data) {
   const cur = data.current;
   const daily = data.daily;
   const w = decodeWMO(cur.weather_code);
-  const desc = currentLang === 'en' ? w.en : w.ja;
+  const desc = currentLang === 'en'
+    ? w.en
+    : currentLang === 'zh'
+      ? (w.zh || w.en)
+      : currentLang === 'ko'
+        ? (w.ko || w.en)
+        : w.ja;
   const tempMax = Math.round(daily.temperature_2m_max[0]);
   const tempMin = Math.round(daily.temperature_2m_min[0]);
   const precip = daily.precipitation_probability_max[0] ?? '--';
@@ -358,18 +416,30 @@ function showCursorTemporarily() {
   window.addEventListener(evt, showCursorTemporarily, { passive: true });
 });
 
-function toggleLanguage() {
-  currentLang = currentLang === 'ja' ? 'en' : 'ja';
+const LANG_ORDER: Lang[] = ['ja', 'en', 'zh', 'ko'];
+let langIndex = 0;
+
+function applyLanguage(nextLang: Lang) {
+  if (nextLang === currentLang) return;
+  currentLang = nextLang;
   applyStaticLanguage();
+
   // キャッシュ済みデータで即時描画しなおす
   CITIES.forEach(c => {
     if (weatherCache[c.id]) updateCard(c, weatherCache[c.id]);
   });
   renderNaganoPage(naganoPage);
+  fetchWarningInfo();
   fetchPiStatus();
+
   const now = new Date();
   document.getElementById('last-updated').textContent =
     `${UI_TEXT[currentLang].updated}: ${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}`;
+}
+
+function rotateLanguage() {
+  langIndex = (langIndex + 1) % LANG_ORDER.length;
+  applyLanguage(LANG_ORDER[langIndex]);
 }
 
 // 初期化
@@ -386,5 +456,12 @@ document.body.classList.add('cursor-hidden');
 setInterval(refresh, 30 * 60 * 1000); // 30分ごと
 setInterval(fetchWarningInfo, 10 * 60 * 1000); // 10分ごと
 setInterval(fetchPiStatus, 60 * 1000); // 1分ごと
-setInterval(() => renderNaganoPage(naganoPage + 1), 12 * 1000); // 12秒ごとに長野ページ切替
-setInterval(toggleLanguage, 24 * 1000); // 24秒ごとに日本語/英語切替
+
+let pageSwitchCount = 0;
+setInterval(() => {
+  renderNaganoPage(naganoPage + 1); // 12秒ごとに長野ページ切替
+  pageSwitchCount++;
+  if (pageSwitchCount % 2 === 0) {
+    rotateLanguage(); // 24秒ごとに言語切替（ページ切替と同期）
+  }
+}, 12 * 1000);
