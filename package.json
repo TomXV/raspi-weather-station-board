@@ -2,16 +2,10 @@
   "name": "weather-station",
   "version": "1.0.0",
   "private": true,
-  "type": "module",
   "scripts": {
     "dev": "bun --watch src/server.ts",
     "start": "bun src/server.ts",
-    "build": "webpack --config webpack.config.cjs",
-    "build:watch": "webpack --config webpack.config.cjs --watch",
-    "watch": "bash scripts/watch.sh"
+    "watch": "bun --watch src/server.ts"
   },
-  "devDependencies": {
-    "webpack": "^5.105.2",
-    "webpack-cli": "^6.0.1"
-  }
+  "type": "module"
 }
