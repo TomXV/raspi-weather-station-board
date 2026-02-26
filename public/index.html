@@ -164,6 +164,7 @@
     display: flex;
     align-items: flex-end;
     gap: 14px;
+    flex-wrap: nowrap;
   }
 
   .next-update {
@@ -172,8 +173,11 @@
     font-weight: 800;
     letter-spacing: 0.03em;
     text-shadow: 0 0 8px rgba(120,190,255,0.35);
-    margin-bottom: 4px;
+    margin-bottom: 0;
     white-space: nowrap;
+    align-self: flex-start;
+    text-align: left;
+    margin-top: auto;
   }
 
   .last-updated {
@@ -466,6 +470,158 @@
 
   .weather-card.loaded {
     animation: fadeIn 0.4s ease;
+  }
+
+  /* ===== Mobile / Tablet responsive ===== */
+  @media (max-width: 1024px) {
+    body {
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .board {
+      height: auto;
+      min-height: 100vh;
+      padding: 10px;
+      gap: 8px;
+    }
+
+    .header {
+      grid-template-columns: 1fr;
+      row-gap: 2px;
+      justify-items: stretch;
+      min-height: 0;
+    }
+
+    .header-left,
+    .header-center,
+    .header-right {
+      position: static;
+      transform: none;
+      justify-self: stretch;
+    }
+
+    .header-left {
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .header-title {
+      font-size: 1.05rem;
+      letter-spacing: 0.08em;
+    }
+
+    .header-meta-big,
+    .header-clock {
+      font-size: 2rem;
+    }
+
+    .header-date {
+      margin-right: 0;
+    }
+
+    .header-date.is-chinese-cal {
+      transform: none;
+    }
+
+    .header-center {
+      text-align: center;
+      min-width: 0;
+      margin-top: 12px;
+    }
+
+    .header-right {
+      justify-content: space-between;
+      gap: 4px;
+      display: flex;
+      flex-direction: row;
+      align-items: flex-end;
+      flex-wrap: nowrap;
+      width: 100%;
+      min-height: 44px;
+      margin-top: -2px;
+    }
+
+    .next-update {
+      font-size: 1rem;
+      margin-bottom: 0;
+      align-self: flex-end;
+      margin-top: 0;
+      text-align: left;
+    }
+
+    .last-updated.header-meta-big {
+      font-size: 1.35rem;
+      line-height: 1.05;
+      align-self: flex-end;
+      margin-top: 0;
+      margin-left: auto;
+      text-align: right;
+    }
+
+    .info-row {
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .info-box.status-box {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .alert-text {
+      min-height: 2.2rem;
+    }
+
+    .alert-text .ticker-track {
+      font-size: 1.35rem;
+    }
+
+    .cities-grid,
+    .nagano-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .card-temp {
+      font-size: 2.4rem;
+    }
+
+    .card-icon {
+      font-size: 2rem;
+    }
+
+    .card-trend {
+      font-size: 1.6rem;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .cities-grid,
+    .nagano-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .header-meta-big,
+    .header-clock {
+      font-size: 1.6rem;
+    }
+
+    .header-weekline,
+    .card-details {
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .status-grid {
+      grid-template-columns: 1fr;
+      font-size: 0.9rem;
+    }
+
+    .alert-text .ticker-track {
+      font-size: 1.1rem;
+    }
   }
 </style>
 </head>
