@@ -5,4 +5,12 @@ cd /home/pi/clawd/weather-station
 pkill -f "weather-station/src/server.ts" >/dev/null 2>&1 || true
 pkill -f "weather-station/server.py" >/dev/null 2>&1 || true
 
-exec bun --watch src/server.ts
+cleanup() {
+  pkill -P $$ >/dev/null 2>&1 || true
+}
+trap cleanup EXIT INT TERM
+
+bun --watch src/server.ts &
+bun run build:watch &
+
+wait
