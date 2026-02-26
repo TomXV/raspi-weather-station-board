@@ -1,21 +1,21 @@
 const CITIES = [
-  { id: 'sapporo', name: '札幌',    region: '北海道',  lat: 43.0618, lon: 141.3545 },
-  { id: 'sendai',  name: '仙台',    region: '宮城県',  lat: 38.2688, lon: 140.8721 },
-  { id: 'tokyo',   name: '東京',    region: '東京都',  lat: 35.6762, lon: 139.6503 },
-  { id: 'nagoya',  name: '名古屋',  region: '愛知県',  lat: 35.1815, lon: 136.9066 },
-  { id: 'osaka',   name: '大阪',    region: '大阪府',  lat: 34.6937, lon: 135.5023 },
-  { id: 'fukuoka', name: '福岡',    region: '福岡県',  lat: 33.5904, lon: 130.4017 },
+  { id: 'sapporo', name: '札幌', enName: 'Sapporo', region: '北海道', enRegion: 'Hokkaido', lat: 43.0618, lon: 141.3545 },
+  { id: 'sendai',  name: '仙台', enName: 'Sendai', region: '宮城県', enRegion: 'Miyagi', lat: 38.2688, lon: 140.8721 },
+  { id: 'tokyo',   name: '東京', enName: 'Tokyo', region: '東京都', enRegion: 'Tokyo', lat: 35.6762, lon: 139.6503 },
+  { id: 'nagoya',  name: '名古屋', enName: 'Nagoya', region: '愛知県', enRegion: 'Aichi', lat: 35.1815, lon: 136.9066 },
+  { id: 'osaka',   name: '大阪', enName: 'Osaka', region: '大阪府', enRegion: 'Osaka', lat: 34.6937, lon: 135.5023 },
+  { id: 'fukuoka', name: '福岡', enName: 'Fukuoka', region: '福岡県', enRegion: 'Fukuoka', lat: 33.5904, lon: 130.4017 },
 ];
 
 const NAGANO = [
-  { id: 'hokushin',   name: '長野市', region: '北信', lat: 36.6485, lon: 138.1948 },
-  { id: 'toushin',    name: '上田市', region: '東信', lat: 36.4020, lon: 138.2490 },
-  { id: 'chushin',    name: '松本市', region: '中信', lat: 36.2380, lon: 137.9724 },
-  { id: 'nanshin',    name: '飯田市', region: '南信', lat: 35.5151, lon: 137.8217 },
-  { id: 'suwa',       name: '諏訪市', region: '諏訪エリア', lat: 36.0392, lon: 138.1131 },
-  { id: 'inaji',      name: '伊那市', region: '伊那路エリア', lat: 35.8274, lon: 137.9537 },
-  { id: 'kisoj',      name: '木曽町', region: '木曽路エリア', lat: 35.8423, lon: 137.6937 },
-  { id: 'alps',       name: '大町市', region: '日本アルプスエリア', lat: 36.5045, lon: 137.8518 },
+  { id: 'hokushin', name: '長野市', enName: 'Nagano', region: '北信', enRegion: 'North Shin', lat: 36.6485, lon: 138.1948 },
+  { id: 'toushin',  name: '上田市', enName: 'Ueda', region: '東信', enRegion: 'East Shin', lat: 36.4020, lon: 138.2490 },
+  { id: 'chushin',  name: '松本市', enName: 'Matsumoto', region: '中信', enRegion: 'Central Shin', lat: 36.2380, lon: 137.9724 },
+  { id: 'nanshin',  name: '飯田市', enName: 'Iida', region: '南信', enRegion: 'South Shin', lat: 35.5151, lon: 137.8217 },
+  { id: 'suwa',     name: '諏訪市', enName: 'Suwa', region: '諏訪エリア', enRegion: 'Suwa Area', lat: 36.0392, lon: 138.1131 },
+  { id: 'inaji',    name: '伊那市', enName: 'Ina', region: '伊那路エリア', enRegion: 'Inaji Area', lat: 35.8274, lon: 137.9537 },
+  { id: 'kisoj',    name: '木曽町', enName: 'Kiso', region: '木曽路エリア', enRegion: 'Kisoji Area', lat: 35.8423, lon: 137.6937 },
+  { id: 'alps',     name: '大町市', enName: 'Omachi', region: '日本アルプスエリア', enRegion: 'Japan Alps Area', lat: 36.5045, lon: 137.8518 },
 ];
 
 const WARNING_AREAS = [
@@ -28,35 +28,89 @@ const WARNING_AREAS = [
   { label: '長野県', code: '200000' },
 ];
 
-// WMO 天気コード → 絵文字 + 日本語
-function decodeWMO(code) {
-  const map = {
-    0:  { icon: '☀️',  desc: '快晴' },
-    1:  { icon: '🌤️', desc: 'ほぼ晴れ' },
-    2:  { icon: '⛅',  desc: '一部曇り' },
-    3:  { icon: '☁️',  desc: '曇り' },
-    45: { icon: '🌫️', desc: '霧' },
-    48: { icon: '🌫️', desc: '霧(着氷)' },
-    51: { icon: '🌦️', desc: '霧雨(弱)' },
-    53: { icon: '🌦️', desc: '霧雨' },
-    55: { icon: '🌦️', desc: '霧雨(強)' },
-    61: { icon: '🌧️', desc: '雨(弱)' },
-    63: { icon: '🌧️', desc: '雨' },
-    65: { icon: '🌧️', desc: '雨(強)' },
-    71: { icon: '🌨️', desc: '雪(弱)' },
-    73: { icon: '❄️',  desc: '雪' },
-    75: { icon: '❄️',  desc: '雪(強)' },
-    77: { icon: '🌨️', desc: 'あられ' },
-    80: { icon: '🌦️', desc: 'にわか雨(弱)' },
-    81: { icon: '🌦️', desc: 'にわか雨' },
-    82: { icon: '⛈️', desc: 'にわか雨(強)' },
-    85: { icon: '🌨️', desc: 'にわか雪' },
-    86: { icon: '🌨️', desc: 'にわか雪(強)' },
-    95: { icon: '⛈️', desc: '雷雨' },
-    96: { icon: '⛈️', desc: '雷雨+ひょう' },
-    99: { icon: '⛈️', desc: '激しい雷雨' },
+type Lang = 'ja' | 'en';
+let currentLang: Lang = 'ja';
+
+const UI_TEXT = {
+  ja: {
+    boardTitle: '⛅ 気象情報ボード',
+    warningTitle: '⚠ 警報・注意報（主要都市 + 長野県 / 生文）',
+    piTitle: '🖥 Raspberry Pi ステータス',
+    majorLabel: '▶ 主要都市',
+    naganoLabel: '▶ 長野県',
+    updated: '最終更新',
+    updating: '更新中...',
+    precip: '降水量',
+    wind: '風速',
+    humidity: '湿度',
+    failed: '取得失敗',
+    page: 'ページ',
+  },
+  en: {
+    boardTitle: '⛅ Weather Board',
+    warningTitle: '⚠ Warning / Advisory (Major Cities + Nagano / Raw Text)',
+    piTitle: '🖥 Raspberry Pi Status',
+    majorLabel: '▶ Major Cities',
+    naganoLabel: '▶ Nagano',
+    updated: 'Updated',
+    updating: 'Updating...',
+    precip: 'Rain',
+    wind: 'Wind',
+    humidity: 'Humidity',
+    failed: 'Fetch Failed',
+    page: 'Page',
+  }
+};
+
+function decodeWMO(code: number) {
+  const map: Record<number, { icon: string; ja: string; en: string }> = {
+    0:  { icon: '☀️', ja: '快晴', en: 'Clear' },
+    1:  { icon: '🌤️', ja: 'ほぼ晴れ', en: 'Mostly clear' },
+    2:  { icon: '⛅', ja: '一部曇り', en: 'Partly cloudy' },
+    3:  { icon: '☁️', ja: '曇り', en: 'Cloudy' },
+    45: { icon: '🌫️', ja: '霧', en: 'Fog' },
+    48: { icon: '🌫️', ja: '霧(着氷)', en: 'Rime fog' },
+    51: { icon: '🌦️', ja: '霧雨(弱)', en: 'Light drizzle' },
+    53: { icon: '🌦️', ja: '霧雨', en: 'Drizzle' },
+    55: { icon: '🌦️', ja: '霧雨(強)', en: 'Dense drizzle' },
+    61: { icon: '🌧️', ja: '雨(弱)', en: 'Light rain' },
+    63: { icon: '🌧️', ja: '雨', en: 'Rain' },
+    65: { icon: '🌧️', ja: '雨(強)', en: 'Heavy rain' },
+    71: { icon: '🌨️', ja: '雪(弱)', en: 'Light snow' },
+    73: { icon: '❄️', ja: '雪', en: 'Snow' },
+    75: { icon: '❄️', ja: '雪(強)', en: 'Heavy snow' },
+    77: { icon: '🌨️', ja: 'あられ', en: 'Snow grains' },
+    80: { icon: '🌦️', ja: 'にわか雨(弱)', en: 'Light showers' },
+    81: { icon: '🌦️', ja: 'にわか雨', en: 'Showers' },
+    82: { icon: '⛈️', ja: 'にわか雨(強)', en: 'Heavy showers' },
+    85: { icon: '🌨️', ja: 'にわか雪', en: 'Snow showers' },
+    86: { icon: '🌨️', ja: 'にわか雪(強)', en: 'Heavy snow showers' },
+    95: { icon: '⛈️', ja: '雷雨', en: 'Thunderstorm' },
+    96: { icon: '⛈️', ja: '雷雨+ひょう', en: 'Storm + hail' },
+    99: { icon: '⛈️', ja: '激しい雷雨', en: 'Severe storm' },
   };
-  return map[code] || { icon: '❓', desc: `(${code})` };
+  return map[code] || { icon: '❓', ja: `(${code})`, en: `(${code})` };
+}
+
+function getDisplay(loc: any) {
+  return {
+    name: currentLang === 'en' ? (loc.enName || loc.name) : loc.name,
+    region: currentLang === 'en' ? (loc.enRegion || loc.region) : loc.region,
+  };
+}
+
+function applyStaticLanguage() {
+  const t = UI_TEXT[currentLang];
+  const board = document.getElementById('board-title');
+  if (board) board.textContent = t.boardTitle;
+  const warning = document.getElementById('warning-title');
+  if (warning) warning.textContent = t.warningTitle;
+  const pi = document.getElementById('pi-title');
+  if (pi) pi.textContent = t.piTitle;
+  const major = document.getElementById('major-label');
+  if (major) major.textContent = t.majorLabel;
+  const nag = document.getElementById('nagano-label');
+  if (nag) nag.textContent = t.naganoLabel;
 }
 
 // カード HTML 生成
@@ -64,11 +118,12 @@ function buildCard(loc, isNagano) {
   const card = document.createElement('div');
   card.className = 'weather-card';
   card.id = `card-${loc.id}`;
+  const d = getDisplay(loc);
   card.innerHTML = `
     <div style="display:flex;justify-content:space-between;align-items:flex-start">
       <div>
-        <div class="card-city">${loc.name}</div>
-        <div class="card-region">${loc.region}</div>
+        <div class="card-city">${d.name}</div>
+        <div class="card-region">${d.region}</div>
       </div>
       <div class="loading">…</div>
     </div>
@@ -181,16 +236,20 @@ async function fetchPiStatus() {
     const uptime = s.uptime || '--';
     const ip = s.ip || '--';
 
+    const labels = currentLang === 'en'
+      ? { temp: 'Temp', load: 'Load', mem: 'Memory', disk: 'Disk', up: 'Uptime', ip: 'IP' }
+      : { temp: '温度', load: '負荷', mem: 'メモリ', disk: 'ディスク', up: '稼働', ip: 'IP' };
+
     document.getElementById('pi-status').innerHTML = `
-      <span>温度: <b>${temp}°C</b></span>
-      <span>負荷: <b>${load}</b></span>
-      <span>メモリ: <b>${mem}</b></span>
-      <span>ディスク: <b>${disk}</b></span>
-      <span>稼働: <b>${uptime}</b></span>
-      <span>IP: <b>${ip}</b></span>
+      <span>${labels.temp}: <b>${temp}°C</b></span>
+      <span>${labels.load}: <b>${load}</b></span>
+      <span>${labels.mem}: <b>${mem}</b></span>
+      <span>${labels.disk}: <b>${disk}</b></span>
+      <span>${labels.up}: <b>${uptime}</b></span>
+      <span>${labels.ip}: <b>${ip}</b></span>
     `;
   } catch (e) {
-    document.getElementById('pi-status').innerHTML = `<span>取得失敗</span>`;
+    document.getElementById('pi-status').innerHTML = `<span>${UI_TEXT[currentLang].failed}</span>`;
   }
 }
 
@@ -201,21 +260,24 @@ function updateCard(loc, data) {
 
   const cur = data.current;
   const daily = data.daily;
-  const { icon, desc } = decodeWMO(cur.weather_code);
+  const w = decodeWMO(cur.weather_code);
+  const desc = currentLang === 'en' ? w.en : w.ja;
   const tempMax = Math.round(daily.temperature_2m_max[0]);
   const tempMin = Math.round(daily.temperature_2m_min[0]);
   const precip = daily.precipitation_probability_max[0] ?? '--';
+  const d = getDisplay(loc);
+  const t = UI_TEXT[currentLang];
 
   card.innerHTML = `
     <div style="display:flex;justify-content:space-between;align-items:flex-start">
       <div>
-        <div class="card-city">${loc.name}</div>
-        <div class="card-region">${loc.region}</div>
+        <div class="card-city">${d.name}</div>
+        <div class="card-region">${d.region}</div>
       </div>
-      <div class="card-precip">降水量:${precip}%</div>
+      <div class="card-precip">${t.precip}:${precip}%</div>
     </div>
     <div class="card-weather-row">
-      <span class="card-icon">${icon}</span>
+      <span class="card-icon">${w.icon}</span>
       <div>
         <div>
           <span class="card-temp">${Math.round(cur.temperature_2m)}</span>
@@ -230,8 +292,8 @@ function updateCard(loc, data) {
       <span class="min">↓${tempMin}°</span>
     </div>
     <div class="card-details">
-      <span class="card-detail">💨 ${Math.round(cur.wind_speed_10m)}km/h</span>
-      <span class="card-detail">💧 ${cur.relative_humidity_2m}%</span>
+      <span class="card-detail">💨 ${t.wind} ${Math.round(cur.wind_speed_10m)}km/h</span>
+      <span class="card-detail">💧 ${t.humidity} ${cur.relative_humidity_2m}%</span>
     </div>
   `;
   card.classList.add('loaded');
@@ -240,16 +302,17 @@ function updateCard(loc, data) {
 function setCardError(loc, msg) {
   const card = document.getElementById(`card-${loc.id}`);
   if (!card) return;
+  const d = getDisplay(loc);
   card.innerHTML = `
-    <div class="card-city">${loc.name}</div>
-    <div class="card-region">${loc.region}</div>
-    <div class="error">取得失敗</div>
+    <div class="card-city">${d.name}</div>
+    <div class="card-region">${d.region}</div>
+    <div class="error">${UI_TEXT[currentLang].failed}</div>
   `;
 }
 
 // 全データ更新
 async function refresh() {
-  document.getElementById('last-updated').textContent = '更新中...';
+  document.getElementById('last-updated').textContent = `${UI_TEXT[currentLang].updating}`;
   const all = [...CITIES, ...NAGANO];
   await Promise.allSettled(all.map(async loc => {
     try {
@@ -263,7 +326,7 @@ async function refresh() {
   updateCityTicker();
   const now = new Date();
   document.getElementById('last-updated').textContent =
-    `最終更新: ${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}`;
+    `${UI_TEXT[currentLang].updated}: ${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}`;
 }
 
 // 時計
@@ -295,7 +358,22 @@ function showCursorTemporarily() {
   window.addEventListener(evt, showCursorTemporarily, { passive: true });
 });
 
+function toggleLanguage() {
+  currentLang = currentLang === 'ja' ? 'en' : 'ja';
+  applyStaticLanguage();
+  // キャッシュ済みデータで即時描画しなおす
+  CITIES.forEach(c => {
+    if (weatherCache[c.id]) updateCard(c, weatherCache[c.id]);
+  });
+  renderNaganoPage(naganoPage);
+  fetchPiStatus();
+  const now = new Date();
+  document.getElementById('last-updated').textContent =
+    `${UI_TEXT[currentLang].updated}: ${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}`;
+}
+
 // 初期化
+applyStaticLanguage();
 initGrids();
 tickClock();
 setInterval(tickClock, 1000);
@@ -309,3 +387,4 @@ setInterval(refresh, 30 * 60 * 1000); // 30分ごと
 setInterval(fetchWarningInfo, 10 * 60 * 1000); // 10分ごと
 setInterval(fetchPiStatus, 60 * 1000); // 1分ごと
 setInterval(() => renderNaganoPage(naganoPage + 1), 12 * 1000); // 12秒ごとに長野ページ切替
+setInterval(toggleLanguage, 24 * 1000); // 24秒ごとに日本語/英語切替
