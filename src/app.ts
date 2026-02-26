@@ -45,6 +45,7 @@ const UI_TEXT = {
     humidity: '湿度',
     failed: '取得失敗',
     page: 'ページ',
+    nextUpdate: '次回更新まで',
     calGregorian: '西暦',
     calJapanese: '和暦',
     calChinese: '中国暦',
@@ -62,6 +63,7 @@ const UI_TEXT = {
     humidity: 'Humidity',
     failed: 'Fetch Failed',
     page: 'Page',
+    nextUpdate: 'Next update in',
     calGregorian: 'Gregorian',
     calJapanese: 'Japanese Era',
     calChinese: 'Chinese Calendar',
@@ -79,6 +81,7 @@ const UI_TEXT = {
     humidity: '湿度',
     failed: '获取失败',
     page: '页',
+    nextUpdate: '距离下次更新',
     calGregorian: '公历',
     calJapanese: '和历',
     calChinese: '农历',
@@ -96,6 +99,7 @@ const UI_TEXT = {
     humidity: '습도',
     failed: '가져오기 실패',
     page: '페이지',
+    nextUpdate: '다음 업데이트까지',
     calGregorian: '서기',
     calJapanese: '화력',
     calChinese: '중국력',
@@ -164,6 +168,7 @@ function applyStaticLanguage() {
   if (major) major.textContent = t.majorLabel;
   const nag = document.getElementById('nagano-label');
   if (nag) nag.textContent = t.naganoLabel;
+  updateNextUpdateLabel(new Date());
 }
 
 function warningAreaLabel(area: any) {
@@ -190,6 +195,8 @@ function buildCard(loc, isNagano) {
 }
 
 const NAGANO_PAGE_SIZE = 4;
+const WEATHER_REFRESH_MS = 30 * 60 * 1000;
+let nextRefreshAt = Date.now() + WEATHER_REFRESH_MS;
 let naganoPage = 0;
 const weatherCache = {};
 
@@ -395,31 +402,35 @@ async function refresh() {
   }));
   updateCityTicker();
   const now = new Date();
+  nextRefreshAt = now.getTime() + WEATHER_REFRESH_MS;
   document.getElementById('last-updated').textContent =
     `${UI_TEXT[currentLang].updated}: ${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}`;
 }
 
 function formatDateWithCalendar(now: Date, cal: 'gregory' | 'japanese' | 'chinese') {
-  const t = UI_TEXT[currentLang];
   try {
     if (cal === 'gregory') {
-      const s = `${now.getFullYear()}/${String(now.getMonth()+1).padStart(2,'0')}/${String(now.getDate()).padStart(2,'0')}`;
-      return s;
+      return `${now.getFullYear()}/${String(now.getMonth()+1).padStart(2,'0')}/${String(now.getDate()).padStart(2,'0')}`;
     }
     if (cal === 'japanese') {
-      const s = new Intl.DateTimeFormat('ja-JP-u-ca-japanese', {
+      return new Intl.DateTimeFormat('ja-JP-u-ca-japanese', {
         year: 'numeric', month: '2-digit', day: '2-digit'
       }).format(now);
-      return s;
     }
-    const s = new Intl.DateTimeFormat('zh-CN-u-ca-chinese', {
+    return new Intl.DateTimeFormat('zh-CN-u-ca-chinese', {
       year: 'numeric', month: 'long', day: 'numeric'
     }).format(now);
-    return s;
   } catch {
-    const s = `${now.getFullYear()}/${String(now.getMonth()+1).padStart(2,'0')}/${String(now.getDate()).padStart(2,'0')}`;
-    return `${t.calGregorian}: ${s}`;
+    return `${now.getFullYear()}/${String(now.getMonth()+1).padStart(2,'0')}/${String(now.getDate()).padStart(2,'0')}`;
   }
+}
+
+function updateNextUpdateLabel(now: Date) {
+  const remain = Math.max(0, nextRefreshAt - now.getTime());
+  const mm = String(Math.floor(remain / 60000)).padStart(2, '0');
+  const ss = String(Math.floor((remain % 60000) / 1000)).padStart(2, '0');
+  const el = document.getElementById('next-update');
+  if (el) el.textContent = `${UI_TEXT[currentLang].nextUpdate} ${mm}:${ss}`;
 }
 
 function currentCalendarMode(now: Date): 'gregory' | 'japanese' | 'chinese' {
@@ -433,10 +444,23 @@ function currentCalendarMode(now: Date): 'gregory' | 'japanese' | 'chinese' {
 // 時計
 function tickClock() {
   const now = new Date();
-  const h = now.getHours().toString().padStart(2,'0');
+  const hour24 = now.getHours();
+  const h = hour24.toString().padStart(2,'0');
   const m = now.getMinutes().toString().padStart(2,'0');
   const s = now.getSeconds().toString().padStart(2,'0');
   document.getElementById('clock').textContent = `${h}:${m}:${s}`;
+
+  const hour12 = ((hour24 + 11) % 12) + 1;
+  const am = hour24 < 12;
+  const clock12 = currentLang === 'en'
+    ? `${am ? 'AM' : 'PM'} ${hour12}:00`
+    : currentLang === 'zh'
+      ? `${am ? '上午' : '下午'}${hour12}点`
+      : currentLang === 'ko'
+        ? `${am ? '오전' : '오후'} ${hour12}시`
+        : `${am ? '午前' : '午後'}${hour12}時`;
+  const clock12El = document.getElementById('clock12-str');
+  if (clock12El) clock12El.textContent = clock12;
 
   const days = ['日','月','火','水','木','金','土'];
   const y = now.getFullYear();
@@ -457,6 +481,8 @@ function tickClock() {
     dateEl.textContent = formatDateWithCalendar(now, mode);
     dateEl.classList.toggle('is-chinese-cal', mode === 'chinese');
   }
+
+  updateNextUpdateLabel(now);
 }
 
 // カーソル自動非表示（起動直後から非表示 / 3秒無操作で再び隠す）
@@ -509,7 +535,7 @@ fetchWarningInfo();
 fetchPiStatus();
 document.body.classList.add('cursor-hidden');
 
-setInterval(refresh, 30 * 60 * 1000); // 30分ごと
+setInterval(refresh, WEATHER_REFRESH_MS); // 30分ごと
 setInterval(fetchWarningInfo, 10 * 60 * 1000); // 10分ごと
 setInterval(fetchPiStatus, 60 * 1000); // 1分ごと
 
