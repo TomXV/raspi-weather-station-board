@@ -212,7 +212,7 @@ function updateCard(loc, data) {
         <div class="card-city">${loc.name}</div>
         <div class="card-region">${loc.region}</div>
       </div>
-      <div class="card-precip">💧${precip}%</div>
+      <div class="card-precip">降水量:${precip}%</div>
     </div>
     <div class="card-weather-row">
       <span class="card-icon">${icon}</span>

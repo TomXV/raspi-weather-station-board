@@ -19,7 +19,7 @@ var $=[{id:"sapporo",name:"札幌",region:"北海道",lat:43.0618,lon:141.3545},
         <div class="card-city">${q.name}</div>
         <div class="card-region">${q.region}</div>
       </div>
-      <div class="card-precip">\uD83D\uDCA7${_}%</div>
+      <div class="card-precip">降水量:${_}%</div>
     </div>
     <div class="card-weather-row">
       <span class="card-icon">${F}</span>
