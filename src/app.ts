@@ -45,6 +45,9 @@ const UI_TEXT = {
     humidity: '湿度',
     failed: '取得失敗',
     page: 'ページ',
+    calGregorian: '西暦',
+    calJapanese: '和暦',
+    calChinese: '中国暦',
   },
   en: {
     boardTitle: '⛅ Weather Board',
@@ -59,6 +62,9 @@ const UI_TEXT = {
     humidity: 'Humidity',
     failed: 'Fetch Failed',
     page: 'Page',
+    calGregorian: 'Gregorian',
+    calJapanese: 'Japanese Era',
+    calChinese: 'Chinese Calendar',
   },
   zh: {
     boardTitle: '⛅ 气象信息看板',
@@ -73,6 +79,9 @@ const UI_TEXT = {
     humidity: '湿度',
     failed: '获取失败',
     page: '页',
+    calGregorian: '公历',
+    calJapanese: '和历',
+    calChinese: '农历',
   },
   ko: {
     boardTitle: '⛅ 기상 정보 보드',
@@ -87,6 +96,9 @@ const UI_TEXT = {
     humidity: '습도',
     failed: '가져오기 실패',
     page: '페이지',
+    calGregorian: '서기',
+    calJapanese: '화력',
+    calChinese: '중국력',
   }
 };
 
@@ -387,6 +399,37 @@ async function refresh() {
     `${UI_TEXT[currentLang].updated}: ${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}`;
 }
 
+function formatDateWithCalendar(now: Date, cal: 'gregory' | 'japanese' | 'chinese') {
+  const t = UI_TEXT[currentLang];
+  try {
+    if (cal === 'gregory') {
+      const s = `${now.getFullYear()}/${String(now.getMonth()+1).padStart(2,'0')}/${String(now.getDate()).padStart(2,'0')}`;
+      return s;
+    }
+    if (cal === 'japanese') {
+      const s = new Intl.DateTimeFormat('ja-JP-u-ca-japanese', {
+        year: 'numeric', month: '2-digit', day: '2-digit'
+      }).format(now);
+      return s;
+    }
+    const s = new Intl.DateTimeFormat('zh-CN-u-ca-chinese', {
+      year: 'numeric', month: 'long', day: 'numeric'
+    }).format(now);
+    return s;
+  } catch {
+    const s = `${now.getFullYear()}/${String(now.getMonth()+1).padStart(2,'0')}/${String(now.getDate()).padStart(2,'0')}`;
+    return `${t.calGregorian}: ${s}`;
+  }
+}
+
+function currentCalendarMode(now: Date): 'gregory' | 'japanese' | 'chinese' {
+  const phase = Math.floor(now.getTime() / 6000);
+  if (currentLang === 'zh') {
+    return (['gregory', 'japanese', 'chinese'] as const)[phase % 3];
+  }
+  return (['gregory', 'japanese'] as const)[phase % 2];
+}
+
 // 時計
 function tickClock() {
   const now = new Date();
@@ -408,7 +451,12 @@ function tickClock() {
       : `${dow}曜`;
     weekdayEl.textContent = w;
   }
-  document.getElementById('date-str').textContent = `${y}/${mo}/${d}`;
+  const mode = currentCalendarMode(now);
+  const dateEl = document.getElementById('date-str');
+  if (dateEl) {
+    dateEl.textContent = formatDateWithCalendar(now, mode);
+    dateEl.classList.toggle('is-chinese-cal', mode === 'chinese');
+  }
 }
 
 // カーソル自動非表示（起動直後から非表示 / 3秒無操作で再び隠す）
