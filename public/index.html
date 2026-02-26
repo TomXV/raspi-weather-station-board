@@ -67,11 +67,11 @@
   /* ヘッダー */
   .header {
     display: grid;
-    grid-template-columns: 1fr auto auto auto;
+    grid-template-columns: 1fr auto 1fr;
     align-items: center;
     border-bottom: 2px solid var(--orange);
     padding-bottom: 10px;
-    column-gap: 16px;
+    column-gap: 12px;
   }
 
   .header-left {
@@ -88,11 +88,6 @@
     margin-left: 0;
     margin-right: 78px;
     white-space: nowrap;
-    transition: transform 0.2s ease;
-  }
-
-  .header-date.is-chinese-cal {
-    transform: translateX(50px);
   }
 
   .header-title {
@@ -156,14 +151,6 @@
 
   .header-date {
     color: var(--amber);
-  }
-
-  .header-next-update {
-    text-align: center;
-    color: #9fd4ff;
-    font-size: 1.1rem;
-    font-weight: 700;
-    white-space: nowrap;
   }
 
   .header-right {
@@ -466,7 +453,6 @@
         <div class="header-clock12" id="clock12-str">--</div>
       </div>
     </div>
-    <div class="header-next-update" id="next-update">次回更新まで --:--</div>
     <div class="header-right">
       <div class="last-updated header-meta-big" id="last-updated">更新中...</div>
     </div>
