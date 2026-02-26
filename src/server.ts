@@ -1,10 +1,10 @@
-import { readdirSync, readFileSync, statSync } from "node:fs";
-import { join, extname } from "node:path";
+import { readFileSync, statSync } from "node:fs";
+import { join, extname, resolve } from "node:path";
 import { hostname, loadavg } from "node:os";
 
 const PORT = 8788;
 const HOST = "127.0.0.1";
-const BASE = "/home/pi/clawd/weather-station";
+const BASE = resolve(import.meta.dir, "..", "public");
 
 function readCpuTemp(): number | null {
   try {
