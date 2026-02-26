@@ -400,7 +400,15 @@ function tickClock() {
   const mo = (now.getMonth()+1).toString().padStart(2,'0');
   const d = now.getDate().toString().padStart(2,'0');
   const dow = days[now.getDay()];
-  document.getElementById('date-str').textContent = `${y}/${mo}/${d} (${dow})`;
+  const weekdayEl = document.getElementById('weekday-str');
+  if (weekdayEl) {
+    const w = currentLang === 'en' ? ['SUN','MON','TUE','WED','THU','FRI','SAT'][now.getDay()]
+      : currentLang === 'zh' ? ['周日','周一','周二','周三','周四','周五','周六'][now.getDay()]
+      : currentLang === 'ko' ? ['일','월','화','수','목','금','토'][now.getDay()]
+      : `${dow}曜`;
+    weekdayEl.textContent = w;
+  }
+  document.getElementById('date-str').textContent = `${y}/${mo}/${d}`;
 }
 
 // カーソル自動非表示（起動直後から非表示 / 3秒無操作で再び隠す）
