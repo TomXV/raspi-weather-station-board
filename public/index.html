@@ -154,9 +154,21 @@
   }
 
   .header-right {
-    text-align: right;
     justify-self: end;
     align-self: center;
+    display: flex;
+    align-items: flex-end;
+    gap: 14px;
+  }
+
+  .next-update {
+    font-size: 1.22rem;
+    color: #b6e2ff;
+    font-weight: 800;
+    letter-spacing: 0.03em;
+    text-shadow: 0 0 8px rgba(120,190,255,0.35);
+    margin-bottom: 4px;
+    white-space: nowrap;
   }
 
   .last-updated {
@@ -454,6 +466,7 @@
       </div>
     </div>
     <div class="header-right">
+      <div class="next-update" id="next-update">次回更新まで --:--</div>
       <div class="last-updated header-meta-big" id="last-updated">更新中...</div>
     </div>
   </div>
