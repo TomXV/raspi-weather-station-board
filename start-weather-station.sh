@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-exec /home/pi/clawd/weather-station/scripts/start-weather-station.sh "$@"
+exec /home/pi/workspace/weather-station/scripts/start-weather-station.sh "$@"
