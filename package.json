@@ -7,6 +7,8 @@
     "start": "bun src/server.ts",
     "build": "bun build ./src/app.ts --outfile ./public/app.js --target browser --minify",
     "build:watch": "bun build ./src/app.ts --outfile ./public/app.js --target browser --watch",
+    "format": "bunx prettier --write src/app.ts src/server.ts",
+    "format:check": "bunx prettier --check src/app.ts src/server.ts",
     "watch": "bash scripts/watch.sh",
     "test": "bun test",
     "test:watch": "bun test --watch"
