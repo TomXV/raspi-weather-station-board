@@ -1,0 +1,522 @@
+# i18n.toml — Localisation data for the weather-station board.
+# Edit this file to add cities, regions, languages, or UI text.
+# Bun bundles this at build time (no runtime TOML parser needed).
+
+# ─── UI strings ──────────────────────────────────────────────────────────────
+
+[ui.ja]
+boardTitle         = "⛅ 気象情報ボード"
+warningTitle       = "⚠ 警報・注意報（主要都市 + 長野県 / 生文）"
+piTitle            = "🖥 Raspberry Pi ステータス"
+majorLabel         = "▶ 主要都市"
+naganoLabel        = "▶ 長野県"
+updated            = "最終更新"
+updating           = "更新中..."
+precip             = "降水量"
+wind               = "風速"
+humidity           = "湿度"
+failed             = "取得失敗"
+page               = "ページ"
+nextUpdate         = "次回更新まで"
+am                 = "午前"
+pm                 = "午後"
+hourUnit           = "時"
+weekdays           = ["日曜", "月曜", "火曜", "水曜", "木曜", "金曜", "土曜"]
+piTemp             = "温度"
+piLoad             = "負荷"
+piMem              = "メモリ"
+piDisk             = "ディスク"
+piUptime           = "稼働"
+piIp               = "IP"
+warningNoHeadline  = "現在、目立つ警報見出しなし"
+warningFetchFailed = "取得失敗"
+warningAllFailed   = "警報・注意報情報の取得に失敗"
+noInfo             = "情報なし"
+
+[ui.en]
+boardTitle         = "⛅ Weather Board"
+warningTitle       = "⚠ Warning / Advisory (Major Cities + Nagano / Raw Text)"
+piTitle            = "🖥 Raspberry Pi Status"
+majorLabel         = "▶ Major Cities"
+naganoLabel        = "▶ Nagano"
+updated            = "Updated"
+updating           = "Updating..."
+precip             = "Rain"
+wind               = "Wind"
+humidity           = "Humidity"
+failed             = "Fetch Failed"
+page               = "Page"
+nextUpdate         = "Next update in"
+am                 = "AM"
+pm                 = "PM"
+hourUnit           = ""
+weekdays           = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"]
+piTemp             = "Temp"
+piLoad             = "Load"
+piMem              = "Memory"
+piDisk             = "Disk"
+piUptime           = "Uptime"
+piIp               = "IP"
+warningNoHeadline  = "No notable warnings"
+warningFetchFailed = "Fetch failed"
+warningAllFailed   = "Failed to fetch warning info"
+noInfo             = "No data"
+
+[ui.zh]
+boardTitle         = "⛅ 气象信息看板"
+warningTitle       = "⚠ 警报/注意报（主要城市 + 长野 / 原文）"
+piTitle            = "🖥 Raspberry Pi 状态"
+majorLabel         = "▶ 主要城市"
+naganoLabel        = "▶ 长野"
+updated            = "更新"
+updating           = "更新中..."
+precip             = "降水"
+wind               = "风速"
+humidity           = "湿度"
+failed             = "获取失败"
+page               = "页"
+nextUpdate         = "距离下次更新"
+am                 = "上午"
+pm                 = "下午"
+hourUnit           = "点"
+weekdays           = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"]
+piTemp             = "温度"
+piLoad             = "负载"
+piMem              = "内存"
+piDisk             = "磁盘"
+piUptime           = "运行时长"
+piIp               = "IP"
+warningNoHeadline  = "暂无明显预警信息"
+warningFetchFailed = "获取失败"
+warningAllFailed   = "获取预警信息失败"
+noInfo             = "无信息"
+
+[ui.ko]
+boardTitle         = "⛅ 기상 정보 보드"
+warningTitle       = "⚠ 경보/주의보 (주요 도시 + 나가노 / 원문)"
+piTitle            = "🖥 Raspberry Pi 상태"
+majorLabel         = "▶ 주요 도시"
+naganoLabel        = "▶ 나가노"
+updated            = "갱신"
+updating           = "갱신 중..."
+precip             = "강수"
+wind               = "풍속"
+humidity           = "습도"
+failed             = "가져오기 실패"
+page               = "페이지"
+nextUpdate         = "다음 업데이트까지"
+am                 = "오전"
+pm                 = "오후"
+hourUnit           = "시"
+weekdays           = ["일", "월", "화", "수", "목", "금", "토"]
+piTemp             = "온도"
+piLoad             = "부하"
+piMem              = "메모리"
+piDisk             = "디스크"
+piUptime           = "가동시간"
+piIp               = "IP"
+warningNoHeadline  = "현재 주목할 경보 없음"
+warningFetchFailed = "가져오기 실패"
+warningAllFailed   = "경보 정보 가져오기 실패"
+noInfo             = "정보 없음"
+
+# ─── Major cities ─────────────────────────────────────────────────────────────
+
+[[cities]]
+id        = "sapporo"
+lat       = 43.0618
+lon       = 141.3545
+name_ja   = "札幌"
+name_en   = "Sapporo"
+name_zh   = "札幌"
+name_ko   = "삿포로"
+region_ja = "北海道"
+region_en = "Hokkaido"
+region_zh = "北海道"
+region_ko = "홋카이도"
+
+[[cities]]
+id        = "sendai"
+lat       = 38.2688
+lon       = 140.8721
+name_ja   = "仙台"
+name_en   = "Sendai"
+name_zh   = "仙台"
+name_ko   = "센다이"
+region_ja = "宮城県"
+region_en = "Miyagi"
+region_zh = "宫城县"
+region_ko = "미야기현"
+
+[[cities]]
+id        = "tokyo"
+lat       = 35.6762
+lon       = 139.6503
+name_ja   = "東京"
+name_en   = "Tokyo"
+name_zh   = "东京"
+name_ko   = "도쿄"
+region_ja = "東京都"
+region_en = "Tokyo"
+region_zh = "东京都"
+region_ko = "도쿄도"
+
+[[cities]]
+id        = "nagoya"
+lat       = 35.1815
+lon       = 136.9066
+name_ja   = "名古屋"
+name_en   = "Nagoya"
+name_zh   = "名古屋"
+name_ko   = "나고야"
+region_ja = "愛知県"
+region_en = "Aichi"
+region_zh = "爱知县"
+region_ko = "아이치현"
+
+[[cities]]
+id        = "osaka"
+lat       = 34.6937
+lon       = 135.5023
+name_ja   = "大阪"
+name_en   = "Osaka"
+name_zh   = "大阪"
+name_ko   = "오사카"
+region_ja = "大阪府"
+region_en = "Osaka"
+region_zh = "大阪府"
+region_ko = "오사카부"
+
+[[cities]]
+id        = "fukuoka"
+lat       = 33.5904
+lon       = 130.4017
+name_ja   = "福岡"
+name_en   = "Fukuoka"
+name_zh   = "福冈"
+name_ko   = "후쿠오카"
+region_ja = "福岡県"
+region_en = "Fukuoka"
+region_zh = "福冈县"
+region_ko = "후쿠오카현"
+
+# ─── Nagano regions ───────────────────────────────────────────────────────────
+
+[[nagano]]
+id        = "hokushin"
+lat       = 36.6485
+lon       = 138.1948
+name_ja   = "長野市"
+name_en   = "Nagano"
+name_zh   = "长野市"
+name_ko   = "나가노시"
+region_ja = "北信"
+region_en = "North Shin"
+region_zh = "北信"
+region_ko = "북신"
+
+[[nagano]]
+id        = "toushin"
+lat       = 36.4020
+lon       = 138.2490
+name_ja   = "上田市"
+name_en   = "Ueda"
+name_zh   = "上田市"
+name_ko   = "우에다시"
+region_ja = "東信"
+region_en = "East Shin"
+region_zh = "东信"
+region_ko = "동신"
+
+[[nagano]]
+id        = "chushin"
+lat       = 36.2380
+lon       = 137.9724
+name_ja   = "松本市"
+name_en   = "Matsumoto"
+name_zh   = "松本市"
+name_ko   = "마쓰모토시"
+region_ja = "中信"
+region_en = "Central Shin"
+region_zh = "中信"
+region_ko = "중신"
+
+[[nagano]]
+id        = "nanshin"
+lat       = 35.5151
+lon       = 137.8217
+name_ja   = "飯田市"
+name_en   = "Iida"
+name_zh   = "饭田市"
+name_ko   = "이다시"
+region_ja = "南信"
+region_en = "South Shin"
+region_zh = "南信"
+region_ko = "남신"
+
+[[nagano]]
+id        = "suwa"
+lat       = 36.0392
+lon       = 138.1131
+name_ja   = "諏訪市"
+name_en   = "Suwa"
+name_zh   = "诹访市"
+name_ko   = "스와시"
+region_ja = "諏訪エリア"
+region_en = "Suwa Area"
+region_zh = "诹访区域"
+region_ko = "스와 지역"
+
+[[nagano]]
+id        = "inaji"
+lat       = 35.8274
+lon       = 137.9537
+name_ja   = "伊那市"
+name_en   = "Ina"
+name_zh   = "伊那市"
+name_ko   = "이나시"
+region_ja = "伊那路エリア"
+region_en = "Inaji Area"
+region_zh = "伊那路区域"
+region_ko = "이나지 지역"
+
+[[nagano]]
+id        = "kisoj"
+lat       = 35.8423
+lon       = 137.6937
+name_ja   = "木曽町"
+name_en   = "Kiso"
+name_zh   = "木曾町"
+name_ko   = "기소마치"
+region_ja = "木曽路エリア"
+region_en = "Kisoji Area"
+region_zh = "木曾路区域"
+region_ko = "기소지 지역"
+
+[[nagano]]
+id        = "alps"
+lat       = 36.5045
+lon       = 137.8518
+name_ja   = "大町市"
+name_en   = "Omachi"
+name_zh   = "大町市"
+name_ko   = "오마치시"
+region_ja = "日本アルプスエリア"
+region_en = "Japan Alps Area"
+region_zh = "日本阿尔卑斯区域"
+region_ko = "일본 알프스 지역"
+
+# ─── Warning areas (JMA office codes) ────────────────────────────────────────
+
+[[warning_areas]]
+code     = "016000"
+label_ja = "札幌(北海道)"
+label_en = "Sapporo (Hokkaido)"
+label_zh = "札幌（北海道）"
+
+[[warning_areas]]
+code     = "040000"
+label_ja = "仙台(宮城県)"
+label_en = "Sendai (Miyagi)"
+label_zh = "仙台（宫城县）"
+
+[[warning_areas]]
+code     = "130000"
+label_ja = "東京(東京都)"
+label_en = "Tokyo (Tokyo)"
+label_zh = "东京（东京都）"
+
+[[warning_areas]]
+code     = "230000"
+label_ja = "名古屋(愛知県)"
+label_en = "Nagoya (Aichi)"
+label_zh = "名古屋（爱知县）"
+
+[[warning_areas]]
+code     = "270000"
+label_ja = "大阪(大阪府)"
+label_en = "Osaka (Osaka)"
+label_zh = "大阪（大阪府）"
+
+[[warning_areas]]
+code     = "400000"
+label_ja = "福岡(福岡県)"
+label_en = "Fukuoka (Fukuoka)"
+label_zh = "福冈（福冈县）"
+
+[[warning_areas]]
+code     = "200000"
+label_ja = "長野県"
+label_en = "Nagano"
+label_zh = "长野县"
+
+# ─── WMO weather interpretation codes ────────────────────────────────────────
+# zh falls back to en when omitted.
+
+[[wmo]]
+code = 0
+icon = "☀️"
+ja   = "快晴"
+en   = "Clear"
+ko   = "맑음"
+
+[[wmo]]
+code = 1
+icon = "🌤️"
+ja   = "晴れ"
+en   = "Mostly clear"
+ko   = "대체로 맑음"
+
+[[wmo]]
+code = 2
+icon = "⛅"
+ja   = "晴れのち曇り"
+en   = "Partly cloudy"
+ko   = "부분적으로 흐림"
+
+[[wmo]]
+code = 3
+icon = "☁️"
+ja   = "曇り"
+en   = "Cloudy"
+ko   = "흐림"
+
+[[wmo]]
+code = 45
+icon = "🌫️"
+ja   = "霧"
+en   = "Fog"
+ko   = "안개"
+
+[[wmo]]
+code = 48
+icon = "🌫️"
+ja   = "霧(着氷)"
+en   = "Rime fog"
+ko   = "착빙 안개"
+
+[[wmo]]
+code = 51
+icon = "🌦️"
+ja   = "霧雨(弱)"
+en   = "Light drizzle"
+ko   = "약한 이슬비"
+
+[[wmo]]
+code = 53
+icon = "🌦️"
+ja   = "霧雨"
+en   = "Drizzle"
+ko   = "이슬비"
+
+[[wmo]]
+code = 55
+icon = "🌦️"
+ja   = "霧雨(強)"
+en   = "Dense drizzle"
+ko   = "강한 이슬비"
+
+[[wmo]]
+code = 61
+icon = "🌧️"
+ja   = "雨(弱)"
+en   = "Light rain"
+ko   = "약한 비"
+
+[[wmo]]
+code = 63
+icon = "🌧️"
+ja   = "雨"
+en   = "Rain"
+ko   = "비"
+
+[[wmo]]
+code = 65
+icon = "🌧️"
+ja   = "雨(強)"
+en   = "Heavy rain"
+ko   = "강한 비"
+
+[[wmo]]
+code = 71
+icon = "🌨️"
+ja   = "雪(弱)"
+en   = "Light snow"
+ko   = "약한 눈"
+
+[[wmo]]
+code = 73
+icon = "❄️"
+ja   = "雪"
+en   = "Snow"
+ko   = "눈"
+
+[[wmo]]
+code = 75
+icon = "❄️"
+ja   = "雪(強)"
+en   = "Heavy snow"
+ko   = "강한 눈"
+
+[[wmo]]
+code = 77
+icon = "🌨️"
+ja   = "あられ"
+en   = "Snow grains"
+ko   = "싸락눈"
+
+[[wmo]]
+code = 80
+icon = "🌦️"
+ja   = "にわか雨(弱)"
+en   = "Light showers"
+ko   = "약한 소나기"
+
+[[wmo]]
+code = 81
+icon = "🌦️"
+ja   = "にわか雨"
+en   = "Showers"
+ko   = "소나기"
+
+[[wmo]]
+code = 82
+icon = "⛈️"
+ja   = "にわか雨(強)"
+en   = "Heavy showers"
+ko   = "강한 소나기"
+
+[[wmo]]
+code = 85
+icon = "🌨️"
+ja   = "にわか雪"
+en   = "Snow showers"
+ko   = "눈 소나기"
+
+[[wmo]]
+code = 86
+icon = "🌨️"
+ja   = "にわか雪(強)"
+en   = "Heavy snow showers"
+ko   = "강한 눈 소나기"
+
+[[wmo]]
+code = 95
+icon = "⛈️"
+ja   = "雷雨"
+en   = "Thunderstorm"
+ko   = "뇌우"
+
+[[wmo]]
+code = 96
+icon = "⛈️"
+ja   = "雷雨+ひょう"
+en   = "Storm + hail"
+ko   = "뇌우+우박"
+
+[[wmo]]
+code = 99
+icon = "⛈️"
+ja   = "激しい雷雨"
+en   = "Severe storm"
+ko   = "강한 뇌우"
