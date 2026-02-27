@@ -1,4 +1,10 @@
 import i18nRaw from "./i18n.toml";
+import {
+  formatHourMinute,
+  tempDeltaFrom30mAgo,
+  trendMeta,
+  type OpenMeteoData,
+} from "./weather-utils";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -69,30 +75,6 @@ interface WMOEntry {
   ko?: string;
 }
 
-interface OpenMeteoCurrent {
-  temperature_2m: number;
-  weather_code: number;
-  wind_speed_10m: number;
-  relative_humidity_2m: number;
-}
-
-interface OpenMeteoDaily {
-  temperature_2m_max: number[];
-  temperature_2m_min: number[];
-  precipitation_probability_max: Array<number | null>;
-}
-
-interface OpenMeteoHourly {
-  time: string[];
-  temperature_2m: number[];
-}
-
-interface OpenMeteoData {
-  current: OpenMeteoCurrent;
-  daily: OpenMeteoDaily;
-  hourly: OpenMeteoHourly;
-}
-
 interface PiStatus {
   cpu_temp_c: number | null;
   load1: number | null;
@@ -114,43 +96,6 @@ interface I18nData {
 // ─── Utilities ────────────────────────────────────────────────────────────────
 
 /**
- * 気温変化量（℃）からトレンド矢印と CSS クラスを返す。
- * ±0.5℃ 未満は横ばい、±1.5℃ 以上は急変とみなす。
- */
-function trendMeta(delta: number) {
-  if (delta >= 1.5) return { symbol: "↑", cls: "up-fast" };
-  if (delta >= 0.5) return { symbol: "↗", cls: "up" };
-  if (delta <= -1.5) return { symbol: "↓", cls: "down-fast" };
-  if (delta <= -0.5) return { symbol: "↘", cls: "down" };
-  return { symbol: "→", cls: "flat" };
-}
-
-/**
- * Open-Meteo の hourly データから「30 分前の気温」を探し、
- * 現在気温との差分（℃）を返す。データ不足時は 0。
- */
-function tempDeltaFrom30mAgo(data: OpenMeteoData): number {
-  const currentTemp = Number(data?.current?.temperature_2m);
-  const times: string[] = data?.hourly?.time || [];
-  const temps: number[] = data?.hourly?.temperature_2m || [];
-  if (!Number.isFinite(currentTemp) || times.length === 0) return 0;
-
-  // 30 分前に最も近いインデックスを線形探索
-  const target = Date.now() - 30 * 60 * 1000;
-  let bestIdx = -1,
-    bestDiff = Infinity;
-  for (let i = 0; i < times.length; i++) {
-    const diff = Math.abs(new Date(times[i]).getTime() - target);
-    if (diff < bestDiff) {
-      bestDiff = diff;
-      bestIdx = i;
-    }
-  }
-  if (bestIdx < 0 || !Number.isFinite(Number(temps[bestIdx]))) return 0;
-  return currentTemp - Number(temps[bestIdx]);
-}
-
-/**
  * マーキー要素（.ticker-track）のテキストと速度を更新する。
  * シームレスなループスクロールのためテキストを 2 連結する。
  * 文字数に比例してアニメーション時間を伸ばし可読性を確保（24〜90 秒）。
@@ -161,11 +106,6 @@ function setTickerText(trackId: string, text: string, noInfo: string) {
   const clean = (text || "").trim() || noInfo;
   el.textContent = `${clean}　◆　${clean}　◆　`;
   el.style.animationDuration = `${Math.max(24, Math.min(90, Math.round(clean.length * 0.45)))}s`;
-}
-
-/** HH:MM 形式（24 時制） */
-function formatHourMinute(date: Date): string {
-  return `${String(date.getHours()).padStart(2, "0")}:${String(date.getMinutes()).padStart(2, "0")}`;
 }
 
 // ─── I18n ─────────────────────────────────────────────────────────────────────
