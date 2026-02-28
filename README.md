@@ -2,6 +2,12 @@
 
 Raspberry Pi + Chromium kiosk で動く、案内掲示板風の天気ダッシュボードです。
 
+## 30秒でわかる
+
+- 主要都市 + 長野県エリアの天気を1画面で表示
+- JMAの警報・注意報（生文）と Raspberry Pi の稼働状況を同時に確認
+- Chromium kiosk + autostart 対応で、電源投入後に掲示板としてすぐ使える
+
 - 主要都市 + 長野県エリア表示
 - 警報・注意報（JMA生文）
 - Raspberry Pi ステータス表示（温度/負荷/メモリ/ディスク/稼働/IP）
@@ -47,7 +53,7 @@ LXDE autostart 例:
 [Desktop Entry]
 Type=Application
 Name=Weather Station Board
-Exec=/home/pi/clawd/weather-station/start-weather-station.sh
+Exec=/home/pi/workspace/weather-station/start-weather-station.sh
 X-GNOME-Autostart-enabled=true
 Terminal=false
 ```
