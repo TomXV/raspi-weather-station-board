@@ -53,7 +53,7 @@ LXDE autostart 例:
 [Desktop Entry]
 Type=Application
 Name=Weather Station Board
-Exec=/home/pi/Workspace/weather-station/start-weather-station.sh
+Exec=/home/pi/workspace/weather-station/start-weather-station.sh
 X-GNOME-Autostart-enabled=true
 Terminal=false
 ```
