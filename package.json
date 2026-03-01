@@ -20,6 +20,8 @@
     "tts:warnings:en": "bun run scripts/tts-readout-en.ts -- --warnings-only",
     "tts:warnings:zh": "bun run scripts/tts-readout-zh.ts -- --warnings-only",
     "tts:warnings:ko": "bun run scripts/tts-readout-ko.ts -- --warnings-only"
+    "tts:all": "bun run scripts/tts-readout-all.ts",
+    "tts:all:warnings": "bun run scripts/tts-readout-all.ts -- --warnings-only"
   },
   "type": "module",
   "devDependencies": {
