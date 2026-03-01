@@ -11,7 +11,8 @@
     "format:check": "bunx prettier --check src/app.ts src/server.ts",
     "watch": "bash scripts/watch.sh",
     "test": "bun test",
-    "test:watch": "bun test --watch"
+    "test:watch": "bun test --watch",
+    "tts:readout": "bun run scripts/tts-readout.ts"
   },
   "type": "module",
   "devDependencies": {
