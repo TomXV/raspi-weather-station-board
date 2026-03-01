@@ -134,36 +134,46 @@ async function buildTtsText(): Promise<string> {
 
 // ─── TTS synthesis & playback ──────────────────────────────────────────────────
 
-async function runTts(text: string): Promise<void> {
-  const outputFile = "/tmp/weather-tts-output.mp3";
+const EDGE_TTS = "/home/pi/.npm-global/lib/node_modules/openclaw/node_modules/node-edge-tts/bin.js";
 
-  console.log("Synthesizing speech...");
-  const ttsProc = Bun.spawn(
-    [
-      "node",
-      "/home/pi/.npm-global/lib/node_modules/openclaw/node_modules/node-edge-tts/bin.js",
-      "-v",
-      "ja-JP-KeitaNeural",
-      "-l",
-      "ja-JP",
-      "-t",
-      text,
-      "-f",
-      outputFile,
-    ],
-    { stdout: "inherit", stderr: "inherit" },
+async function synthesizeChunk(text: string, outFile: string): Promise<void> {
+  const proc = Bun.spawn(
+    ["node", EDGE_TTS, "-v", "ja-JP-KeitaNeural", "-l", "ja-JP", "--timeout", "30000", "-t", text, "-f", outFile],
+    { stdout: "pipe", stderr: "pipe" },
   );
-  const ttsExit = await ttsProc.exited;
-  if (ttsExit !== 0) {
-    throw new Error(`TTS synthesis failed with exit code ${ttsExit}`);
+  const code = await proc.exited;
+  if (code !== 0) throw new Error(`TTS chunk failed (exit ${code}): ${text.slice(0, 40)}`);
+}
+
+async function runTts(text: string): Promise<void> {
+  const { unlinkSync } = await import("node:fs");
+  const lines = text.split("\n").map((s: string) => s.trim()).filter(Boolean);
+  const tmpFiles: string[] = [];
+
+  console.log(`Synthesizing ${lines.length} chunks...`);
+  for (let i = 0; i < lines.length; i++) {
+    const tmp = `/tmp/weather-tts-chunk-${i}.mp3`;
+    process.stdout.write(`  [${i + 1}/${lines.length}] ${lines[i].slice(0, 30)}...\n`);
+    await synthesizeChunk(lines[i], tmp);
+    tmpFiles.push(tmp);
   }
 
+  const listFile = "/tmp/weather-tts-list.txt";
+  const outputFile = "/tmp/weather-tts-output.mp3";
+  await Bun.write(listFile, tmpFiles.map((f: string) => `file '${f}'`).join("\n"));
+
+  console.log("Concatenating...");
+  const concat = Bun.spawn(
+    ["ffmpeg", "-y", "-f", "concat", "-safe", "0", "-i", listFile, "-c", "copy", outputFile],
+    { stdout: "pipe", stderr: "pipe" },
+  );
+  await concat.exited;
+
+  for (const f of tmpFiles) { try { unlinkSync(f); } catch {} }
+
   console.log("Playing audio...");
-  const playProc = Bun.spawn(["mpg123", outputFile], {
-    stdout: "inherit",
-    stderr: "inherit",
-  });
-  await playProc.exited;
+  const play = Bun.spawn(["ffplay", "-nodisp", "-autoexit", outputFile], { stdout: "inherit", stderr: "inherit" });
+  await play.exited;
 }
 
 // ─── Main ──────────────────────────────────────────────────────────────────────
