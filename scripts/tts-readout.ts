@@ -115,8 +115,9 @@ async function buildTtsText(): Promise<string> {
       if (!res.ok) continue;
       const warningData = await res.json();
       const headline = (warningData.headlineText ?? "").trim();
-      if (headline) {
-        warningLines.push(`${area.label_ja}では${headline}が発令されています。`);
+      // 解除のみ or 空は無視
+      if (headline && !headline.includes("解除")) {
+        warningLines.push(`${area.label_ja}では${headline}`);
       }
     } catch (e) {
       console.error(`[skip warning] ${area.label_ja}: ${e}`);
