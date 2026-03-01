@@ -358,6 +358,7 @@ code = 0
 icon = "☀️"
 ja   = "快晴"
 en   = "Clear"
+zh   = "晴天"
 ko   = "맑음"
 
 [[wmo]]
@@ -365,6 +366,7 @@ code = 1
 icon = "🌤️"
 ja   = "晴れ"
 en   = "Mostly clear"
+zh   = "大致晴朗"
 ko   = "대체로 맑음"
 
 [[wmo]]
@@ -372,6 +374,7 @@ code = 2
 icon = "⛅"
 ja   = "晴れのち曇り"
 en   = "Partly cloudy"
+zh   = "多云"
 ko   = "부분적으로 흐림"
 
 [[wmo]]
@@ -379,6 +382,7 @@ code = 3
 icon = "☁️"
 ja   = "曇り"
 en   = "Cloudy"
+zh   = "阴天"
 ko   = "흐림"
 
 [[wmo]]
@@ -386,6 +390,7 @@ code = 45
 icon = "🌫️"
 ja   = "霧"
 en   = "Fog"
+zh   = "雾"
 ko   = "안개"
 
 [[wmo]]
@@ -393,6 +398,7 @@ code = 48
 icon = "🌫️"
 ja   = "霧(着氷)"
 en   = "Rime fog"
+zh   = "冻雾"
 ko   = "착빙 안개"
 
 [[wmo]]
@@ -400,6 +406,7 @@ code = 51
 icon = "🌦️"
 ja   = "霧雨(弱)"
 en   = "Light drizzle"
+zh   = "毛毛雨（弱）"
 ko   = "약한 이슬비"
 
 [[wmo]]
@@ -407,6 +414,7 @@ code = 53
 icon = "🌦️"
 ja   = "霧雨"
 en   = "Drizzle"
+zh   = "毛毛雨"
 ko   = "이슬비"
 
 [[wmo]]
@@ -414,6 +422,7 @@ code = 55
 icon = "🌦️"
 ja   = "霧雨(強)"
 en   = "Dense drizzle"
+zh   = "毛毛雨（密集）"
 ko   = "강한 이슬비"
 
 [[wmo]]
@@ -421,6 +430,7 @@ code = 61
 icon = "🌧️"
 ja   = "雨(弱)"
 en   = "Light rain"
+zh   = "小雨"
 ko   = "약한 비"
 
 [[wmo]]
@@ -428,6 +438,7 @@ code = 63
 icon = "🌧️"
 ja   = "雨"
 en   = "Rain"
+zh   = "雨"
 ko   = "비"
 
 [[wmo]]
@@ -435,6 +446,7 @@ code = 65
 icon = "🌧️"
 ja   = "雨(強)"
 en   = "Heavy rain"
+zh   = "大雨"
 ko   = "강한 비"
 
 [[wmo]]
@@ -442,6 +454,7 @@ code = 71
 icon = "🌨️"
 ja   = "雪(弱)"
 en   = "Light snow"
+zh   = "小雪"
 ko   = "약한 눈"
 
 [[wmo]]
@@ -449,6 +462,7 @@ code = 73
 icon = "❄️"
 ja   = "雪"
 en   = "Snow"
+zh   = "雪"
 ko   = "눈"
 
 [[wmo]]
@@ -456,6 +470,7 @@ code = 75
 icon = "❄️"
 ja   = "雪(強)"
 en   = "Heavy snow"
+zh   = "大雪"
 ko   = "강한 눈"
 
 [[wmo]]
@@ -463,6 +478,7 @@ code = 77
 icon = "🌨️"
 ja   = "あられ"
 en   = "Snow grains"
+zh   = "雪粒"
 ko   = "싸락눈"
 
 [[wmo]]
@@ -470,6 +486,7 @@ code = 80
 icon = "🌦️"
 ja   = "にわか雨(弱)"
 en   = "Light showers"
+zh   = "阵雨（弱）"
 ko   = "약한 소나기"
 
 [[wmo]]
@@ -477,6 +494,7 @@ code = 81
 icon = "🌦️"
 ja   = "にわか雨"
 en   = "Showers"
+zh   = "阵雨"
 ko   = "소나기"
 
 [[wmo]]
@@ -484,6 +502,7 @@ code = 82
 icon = "⛈️"
 ja   = "にわか雨(強)"
 en   = "Heavy showers"
+zh   = "大阵雨"
 ko   = "강한 소나기"
 
 [[wmo]]
@@ -491,6 +510,7 @@ code = 85
 icon = "🌨️"
 ja   = "にわか雪"
 en   = "Snow showers"
+zh   = "阵雪"
 ko   = "눈 소나기"
 
 [[wmo]]
@@ -498,6 +518,7 @@ code = 86
 icon = "🌨️"
 ja   = "にわか雪(強)"
 en   = "Heavy snow showers"
+zh   = "大阵雪"
 ko   = "강한 눈 소나기"
 
 [[wmo]]
@@ -505,6 +526,7 @@ code = 95
 icon = "⛈️"
 ja   = "雷雨"
 en   = "Thunderstorm"
+zh   = "雷阵雨"
 ko   = "뇌우"
 
 [[wmo]]
@@ -512,6 +534,7 @@ code = 96
 icon = "⛈️"
 ja   = "雷雨+ひょう"
 en   = "Storm + hail"
+zh   = "雷阵雨+冰雹"
 ko   = "뇌우+우박"
 
 [[wmo]]
@@ -519,4 +542,5 @@ code = 99
 icon = "⛈️"
 ja   = "激しい雷雨"
 en   = "Severe storm"
+zh   = "强雷阵雨"
 ko   = "강한 뇌우"
