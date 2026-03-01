@@ -13,7 +13,8 @@
     "test": "bun test",
     "test:watch": "bun test --watch",
     "tts:readout": "bun run scripts/tts-readout.ts",
-    "tts:readout:en": "bun run scripts/tts-readout-en.ts"
+    "tts:readout:en": "bun run scripts/tts-readout-en.ts",
+    "tts:readout:zh": "bun run scripts/tts-readout-zh.ts"
   },
   "type": "module",
   "devDependencies": {
