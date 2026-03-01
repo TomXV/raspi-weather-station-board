@@ -138,7 +138,7 @@ const EDGE_TTS = "/home/pi/.npm-global/lib/node_modules/openclaw/node_modules/no
 
 async function synthesizeChunk(text: string, outFile: string): Promise<void> {
   const proc = Bun.spawn(
-    ["node", EDGE_TTS, "-v", "ja-JP-KeitaNeural", "-l", "ja-JP", "--timeout", "30000", "-t", text, "-f", outFile],
+    ["node", EDGE_TTS, "-v", "ja-JP-NanamiNeural", "-l", "ja-JP", "--timeout", "30000", "-t", text, "-f", outFile],
     { stdout: "pipe", stderr: "pipe" },
   );
   const code = await proc.exited;
