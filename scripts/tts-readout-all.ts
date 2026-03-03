@@ -20,6 +20,7 @@ const OUTPUT_MAP: Record<string, string> = {
 
 const FINAL_OUTPUT = "/tmp/weather-tts-all-output.mp3";
 const warningsOnly = process.argv.includes("--warnings-only");
+const BUN_BIN = Bun.which("bun") ?? "bun";
 
 // ─── Generate each language ────────────────────────────────────────────────────
 
@@ -31,7 +32,7 @@ for (const lang of LANGS) {
   const args = ["run", SCRIPT_MAP[lang]];
   if (warningsOnly) args.push("--", "--warnings-only");
 
-  const proc = Bun.spawn(["/home/pi/.bun/bin/bun", ...args], {
+  const proc = Bun.spawn([BUN_BIN, ...args], {
     cwd: `${import.meta.dir}/..`,
     env: { ...process.env, NO_PLAY: "1" },
     stdout: "inherit",

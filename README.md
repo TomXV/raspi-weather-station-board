@@ -39,6 +39,13 @@ open: `http://127.0.0.1:8788`
 - `bun run build:watch` — frontend build watch
 - `bun run watch` — server + frontend watch
 - `bun run test` — test runner
+- `bun run tts:readout` — Japanese TTS readout
+- `bun run tts:all` — JA/EN/ZH/KO readout
+
+### TTS Notes
+
+- `EDGE_TTS_BIN` is optional. If unset, TTS scripts auto-discover `node-edge-tts/bin.js` from common global install paths.
+- `NO_PLAY=1` skips `ffplay` and only generates output mp3 files.
 
 ## Kiosk / Autostart (Raspberry Pi)
 

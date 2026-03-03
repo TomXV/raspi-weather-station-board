@@ -1,4 +1,5 @@
 import i18n from "../src/i18n.toml";
+import { resolveEdgeTtsBin, streamToText } from "./tts-edge";
 
 // ─── Types ─────────────────────────────────────────────────────────────────────
 
@@ -180,15 +181,30 @@ async function buildTtsText(warningsOnly = false): Promise<string> {
 
 // ─── TTS synthesis & playback ──────────────────────────────────────────────────
 
-const EDGE_TTS = process.env.EDGE_TTS_BIN || "/home/pi/.npm-global/lib/node_modules/openclaw/node_modules/node-edge-tts/bin.js";
+const EDGE_TTS = resolveEdgeTtsBin();
+console.log(`[tts] node-edge-tts: ${EDGE_TTS.binPath}`);
 
 async function synthesizeChunk(text: string, outFile: string): Promise<void> {
   const proc = Bun.spawn(
-    ["node", EDGE_TTS, "-v", "zh-CN-YunxiNeural", "-l", "zh-CN", "--timeout", "30000", "-t", text, "-f", outFile],
+    ["node", EDGE_TTS.binPath, "-v", "zh-CN-YunxiNeural", "-l", "zh-CN", "--timeout", "30000", "-t", text, "-f", outFile],
     { stdout: "pipe", stderr: "pipe" },
   );
+  const stdoutPromise = streamToText(proc.stdout);
+  const stderrPromise = streamToText(proc.stderr);
   const code = await proc.exited;
-  if (code !== 0) throw new Error(`TTS chunk failed (exit ${code}): ${text.slice(0, 40)}`);
+  const stdout = await stdoutPromise;
+  const stderr = await stderrPromise;
+  if (code !== 0) {
+    throw new Error(
+      [
+        `TTS chunk failed (exit ${code})`,
+        `edge-tts bin: ${EDGE_TTS.binPath}`,
+        `input: ${text.slice(0, 80)}`,
+        stdout ? `stdout: ${stdout}` : "",
+        stderr ? `stderr: ${stderr}` : "",
+      ].filter(Boolean).join("\n"),
+    );
+  }
 }
 
 async function runTts(text: string): Promise<void> {
@@ -213,10 +229,24 @@ async function runTts(text: string): Promise<void> {
     ["ffmpeg", "-y", "-f", "concat", "-safe", "0", "-i", listFile, "-c", "copy", outputFile],
     { stdout: "pipe", stderr: "pipe" },
   );
+  const concatStdoutPromise = streamToText(concat.stdout);
+  const concatStderrPromise = streamToText(concat.stderr);
   const concatCode = await concat.exited;
-  if (concatCode !== 0) { console.error(`ffmpeg concat failed with code ${concatCode}`); process.exit(1); }
+  if (concatCode !== 0) {
+    const concatStdout = await concatStdoutPromise;
+    const concatStderr = await concatStderrPromise;
+    console.error(`ffmpeg concat failed with code ${concatCode}`);
+    if (concatStdout) console.error(concatStdout);
+    if (concatStderr) console.error(concatStderr);
+    process.exit(1);
+  }
 
   for (const f of tmpFiles) { try { unlinkSync(f); } catch {} }
+
+  if (process.env.NO_PLAY === "1") {
+    console.log("NO_PLAY=1 set, skipping playback.");
+    return;
+  }
 
   console.log("Playing audio...");
   const play = Bun.spawn(["ffplay", "-nodisp", "-autoexit", outputFile], { stdout: "inherit", stderr: "inherit" });
